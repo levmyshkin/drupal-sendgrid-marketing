@@ -5,28 +5,52 @@ sendgrid_campaign.admin.structure.campaigns_list:
   route_name: sendgrid_marketing.sendgrid_campaigns_list
   parent: system.admin_structure
 
-entity.sendgrid_campaign.collection:
-  title: 'Sendgrid campaign entities'
-  route_name: entity.sendgrid_campaign.collection
-  description: 'List Sendgrid campaign entities'
+sendgrid_campaign.admin.sctructure.campaigns_list.add_campaign:
+  title: Add Campaign
+  description: 'Add SendGrid Campaign'
+  route_name: entity.sendgrid_campaign.add_form
   parent: sendgrid_campaign.admin.structure.campaigns_list
-  weight: 100
+  weight: 10
 
-sendgrid_campaign.admin.structure.settings:
-  title: Sendgrid campaign settings
-  description: 'Configure Sendgrid campaign entities'
-  route_name: sendgrid_campaign.settings
-  parent: entity.sendgrid_campaign.collection
+sendgrid_campaign.admin.structure.campaigns_list_index:
+  title: SendGrid Campaigns
+  description: 'SendGrid Campaigns'
+  route_name: sendgrid_marketing.sendgrid_campaigns_list
+  parent: sendgrid_campaign.admin.structure.campaigns_list
+  weight: 20
 
 sendgrid_campaign.admin.structure.general_settings:
   title: Settings
   description: 'Settings'
   route_name: sendgrid_marketing.general_settings
   parent: sendgrid_campaign.admin.structure.campaigns_list
+  weight: 100
+
+sendgrid_campaign.admin.structure.general_settings_index:
+  title: General Settings
+  description: 'General Settings'
+  route_name: sendgrid_marketing.general_settings
+  parent: sendgrid_campaign.admin.structure.general_settings
+  weight: 10
+
+entity.sendgrid_campaign.collection:
+  title: 'Sendgrid campaign entities'
+  route_name: entity.sendgrid_campaign.collection
+  description: 'List Sendgrid campaign entities'
+  parent: sendgrid_campaign.admin.structure.general_settings
+  weight: 100
+
+sendgrid_campaign.admin.structure.settings:
+  title: Sendgrid campaign settings
+  description: 'Configure Sendgrid campaign entities'
+  route_name: sendgrid_campaign.settings
+  parent: sendgrid_campaign.admin.structure.general_settings
+  weight: 30
 
 sendgrid_campaign.admin.structure.list_settings:
   title: List Settings
   description: 'List Settings'
   route_name: sendgrid_marketing.list_settings
   parent: sendgrid_campaign.admin.structure.general_settings
+  weight: 20
 
