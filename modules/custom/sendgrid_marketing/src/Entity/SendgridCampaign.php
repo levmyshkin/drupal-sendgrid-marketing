@@ -244,6 +244,10 @@ class SendgridCampaign extends RevisionableContentEntityBase implements Sendgrid
       ->setDisplayConfigurable('form', TRUE)
       ->setRevisionable(TRUE);
 
+    $fields['sendgrid_marketing_campaign_id'] = BaseFieldDefinition::create('integer')
+      ->setLabel(t('SendGrid Campaign ID'))
+      ->setDescription(t('SendGrid Campaign ID.'));
+
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Publishing status'))
       ->setDescription(t('A boolean indicating whether the Sendgrid campaign is published.'))

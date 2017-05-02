@@ -35,8 +35,9 @@ function sendgrid_marketing_entity_insert(Drupal\Core\Entity\EntityInterface $en
       $data = json_decode($data);
 
       // @todo Add field to store sendgrid campaign ID.
-      //$entity->field_sendgrid_campaign_id[LANGUAGE_NONE][0]['value'] = $data->id;
-      //field_attach_update($entity);
+      $entity->sendgrid_marketing_campaign_id->value = $data->id;
+      $entity->setNewRevision(FALSE);
+      $entity->save();
     }
 
   }
@@ -50,22 +51,22 @@ function sendgrid_marketing_create_campaign($entity) {
   $sendgrid_api_key = $message = $config->get('sendgrid_api_key');
   $sg = new \SendGrid($sendgrid_api_key);
 
-  $segment_ids = [];
+  // @todo Add support for Segments.
+  //$segment_ids = [];
 
-  // @todo Add Newsletter category config.
-  // $newsletter_category = $entity->field_simplenews_term[LANGUAGE_NONE][0]['tid'];
-  // $list = _fyi_simplenews_extra_get_list_id_by_category($newsletter_category);
+  $sender_id = $config->get('sendgrid_sender_id');
 
-  $list_ids = !empty($list) ? [$list] : [variable_get('fyi_sendgrid_list_id', 1260998)];
+  // @todo Add support for multiple lists
+  //$list_ids = !empty($list) ? [$list] : [$config->get('sendgrid_list_id')];
+  $list_ids = [$config->get('sendgrid_list_id')];
 
-  $suppression_group_id = variable_get('fyi_sendgrid_suppression_group_id', 2497);
-  $sender_id = variable_get('fyi_sendgrid_sender_id', 122034);
-  $ip_pool = variable_get('fyi_sendgrid_ip_pool', '');
-  $category = [variable_get('fyi_sendgrid_category', '')];
+  $suppression_group_id = $config->get('sendgrid_suppression_group_id');
+  $ip_pool = $config->get('sendgrid_ip_pool');
+  $category = $config->get('sendgrid_category');
 
-  $html_content = fyi_simplenews_extra_html_newsletter($node);
+  $html_content = $entity->sendgrid_marketing_body->value;
   $plain_content = check_markup($html_content, 'plain_text');
-  $plain_content .= ' [unsubscribe]';
+  // @todo Add Header/Footer settings with validation for existing [unsubscribe] token.
 
   $request_body = array(
     'categories' => $category,
@@ -74,7 +75,7 @@ function sendgrid_marketing_create_campaign($entity) {
     'ip_pool' => $ip_pool,
     'list_ids' => $list_ids,
     'plain_content' => $plain_content,
-    'segment_ids' => $segment_ids,
+    //'segment_ids' => $segment_ids,
     'sender_id' => $sender_id,
     'subject' => $node->title,
     'suppression_group_id' => $suppression_group_id,
@@ -85,3 +86,5 @@ function sendgrid_marketing_create_campaign($entity) {
 
   return $response;
 }
+
+// @todo Add notifications about required settings fields on Adding Campaign form.
