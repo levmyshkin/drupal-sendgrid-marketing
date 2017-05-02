@@ -37,8 +37,8 @@ class SendgridMarketingConfigurationForm extends ConfigFormBase {
     $form['sendgrid_api_key'] = array(
       '#type' => 'textfield',
       '#title' => $this->t('SendGrid API Key'),
-      '#description' => t('See this page !link', array('!link' =>
-        '<a target="_blank" href="https://app.sendgrid.com/settings/api_keys">https://app.sendgrid.com/settings/api_keys</a>')),
+      '#description' => t('See this page <a target="_blank" href="@link">@link</a>', array('@link' =>
+        'https://app.sendgrid.com/settings/api_keys')),
       '#default_value' => $config->get('sendgrid_api_key'),
     );
     return parent::buildForm($form, $form_state);

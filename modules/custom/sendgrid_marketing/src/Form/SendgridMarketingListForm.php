@@ -42,8 +42,8 @@ class SendgridMarketingListForm extends ConfigFormBase {
       '#default_value' => $config->get('sendgrid_sender_id'),
       '#size' => 32,
       '#maxlength' => 255,
-      '#description' => t('See this page !link', array('!link' =>
-        '<a target="_blank" href="https://sendgrid.com/marketing_campaigns/ui/senders">https://sendgrid.com/marketing_campaigns/ui/senders</a>')),
+      '#description' => t('See this page <a target="_blank" href="@link">@link</a>',
+        array('@link' => 'https://sendgrid.com/marketing_campaigns/ui/senders')),
       '#required' => TRUE,
     );
 
@@ -53,8 +53,8 @@ class SendgridMarketingListForm extends ConfigFormBase {
       '#default_value' => $config->get('sendgrid_list_id'),
       '#size' => 32,
       '#maxlength' => 255,
-      '#description' => t('See this page !link',
-        array('!link' => '<a target="_blank" href="https://sendgrid.com/marketing_campaigns/contacts">https://sendgrid.com/marketing_campaigns/contacts</a>')),
+      '#description' => t('See this page <a target="_blank" href="@link">@link</a>',
+        array('@link' => 'https://sendgrid.com/marketing_campaigns/contacts')),
       '#required' => TRUE,
     );
 
@@ -64,8 +64,8 @@ class SendgridMarketingListForm extends ConfigFormBase {
       '#default_value' => $config->get('sendgrid_suppression_group_id'),
       '#size' => 32,
       '#maxlength' => 255,
-      '#description' => t('See this page !link', array('!link' =>
-        '<a target="_blank" href="https://app.sendgrid.com/suppressions/advanced_suppression_manager">https://app.sendgrid.com/suppressions/advanced_suppression_manager</a>')),
+      '#description' => t('See this page <a target="_blank" href="@link">@link</a>',
+        array('@link' => 'https://app.sendgrid.com/suppressions/advanced_suppression_manager')),
       '#required' => TRUE,
     );
 
@@ -75,9 +75,9 @@ class SendgridMarketingListForm extends ConfigFormBase {
       '#default_value' => $config->get('sendgrid_ip_pool'),
       '#size' => 32,
       '#maxlength' => 255,
-      '#description' => t('See this page !link',
-        array('!link' => '<a target="_blank" href="https://app.sendgrid.com/settings/ip_addresses">https://app.sendgrid.com/settings/ip_addresses</a>')),
-    );
+      '#description' => t('See this page <a target="_blank" href="@link">@link</a>',
+        array('@link' => 'https://app.sendgrid.com/settings/ip_addresses')),
+   );
 
     $form['sendgrid_category'] = array(
       '#type' => 'textfield',
@@ -85,8 +85,8 @@ class SendgridMarketingListForm extends ConfigFormBase {
       '#default_value' => $config->get('sendgrid_category'),
       '#size' => 32,
       '#maxlength' => 255,
-      '#description' => t('See this page !link',
-        array('!link' => '<a target="_blank" href="https://app.sendgrid.com/statistics/category">https://app.sendgrid.com/statistics/category</a>')),
+      '#description' => t('See this page <a target="_blank" href="@link">@link</a>',
+        array('@link' => 'https://app.sendgrid.com/statistics/category')),
     );
 
     $form['sendgrid_test_emails'] = array(
