@@ -1,0 +1,23 @@
+sendgrid_marketing.general_settings:
+  path: '/admin/config/sendgrid_marketing/general-settings'
+  defaults:
+    _form: '\Drupal\sendgrid_marketing\Form\SendgridMarketingConfigurationForm'
+    _title: 'SendGrid General settings'
+  requirements:
+    _permission: 'administer site configuration'
+
+sendgrid_marketing.list_settings:
+  path: '/admin/config/sendgrid_marketing/list-settings'
+  defaults:
+    _form: '\Drupal\sendgrid_marketing\Form\SendgridMarketingListForm'
+    _title: 'SendGrid List settings'
+  requirements:
+    _permission: 'administer site configuration'
+
+sendgrid_marketing.sendgrid_campaigns_list:
+  path: '/admin/config/sendgrid_marketing/sendgrid-campaigns-list'
+  defaults:
+    _controller: '\Drupal\sendgrid_marketing\Controller\CampaignsController::content'
+    _title: 'SendGrid Campaigns List'
+  requirements:
+    _permission: 'administer site configuration'

@@ -1,0 +1,33 @@
+add sendgrid campaign entities:
+  title: 'Create new Sendgrid campaign entities'
+
+administer sendgrid campaign entities:
+  title: 'Administer Sendgrid campaign entities'
+  description: 'Allow to access the administration form to configure Sendgrid campaign entities.'
+  restrict access: true
+
+delete sendgrid campaign entities:
+  title: 'Delete Sendgrid campaign entities'
+
+edit sendgrid campaign entities:
+  title: 'Edit Sendgrid campaign entities'
+
+access sendgrid campaign overview:
+  title: 'Access the Sendgrid campaign overview page'
+
+view published sendgrid campaign entities:
+  title: 'View published Sendgrid campaign entities'
+
+view unpublished sendgrid campaign entities:
+  title: 'View unpublished Sendgrid campaign entities'
+
+view all sendgrid campaign revisions:
+  title: 'View all Sendgrid campaign revisions'
+
+revert all sendgrid campaign revisions:
+  title: 'Revert all Sendgrid campaign revisions'
+  description: 'Role requires permission <em>view Sendgrid campaign revisions</em> and <em>edit rights</em> for sendgrid campaign entities in question or <em>administer sendgrid campaign entities</em>.'
+
+delete all sendgrid campaign revisions:
+  title: 'Delete all revisions'
+  description: 'Role requires permission to <em>view Sendgrid campaign revisions</em> and <em>delete rights</em> for sendgrid campaign entities in question or <em>administer sendgrid campaign entities</em>.'

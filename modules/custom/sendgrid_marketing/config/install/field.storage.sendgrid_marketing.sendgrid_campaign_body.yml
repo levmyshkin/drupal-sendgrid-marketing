@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - sendgrid_marketing
+    - text
+id: sendgrid_marketing.sendgrid_campaign_body
+field_name: sendgrid_campaign_body
+entity_type: sendgrid_campaign
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

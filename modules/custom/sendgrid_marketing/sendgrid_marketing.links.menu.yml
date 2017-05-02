@@ -1,0 +1,32 @@
+# Sendgrid campaign menu items definition
+sendgrid_campaign.admin.structure.campaigns_list:
+  title: SendGrid Marketing
+  description: 'SendGrid Marketing'
+  route_name: sendgrid_marketing.sendgrid_campaigns_list
+  parent: system.admin_structure
+
+entity.sendgrid_campaign.collection:
+  title: 'Sendgrid campaign entities'
+  route_name: entity.sendgrid_campaign.collection
+  description: 'List Sendgrid campaign entities'
+  parent: sendgrid_campaign.admin.structure.campaigns_list
+  weight: 100
+
+sendgrid_campaign.admin.structure.settings:
+  title: Sendgrid campaign settings
+  description: 'Configure Sendgrid campaign entities'
+  route_name: sendgrid_campaign.settings
+  parent: entity.sendgrid_campaign.collection
+
+sendgrid_campaign.admin.structure.general_settings:
+  title: Settings
+  description: 'Settings'
+  route_name: sendgrid_marketing.general_settings
+  parent: sendgrid_campaign.admin.structure.campaigns_list
+
+sendgrid_campaign.admin.structure.list_settings:
+  title: List Settings
+  description: 'List Settings'
+  route_name: sendgrid_marketing.list_settings
+  parent: sendgrid_campaign.admin.structure.general_settings
+

@@ -1,0 +1,87 @@
+<?php
+
+/**
+ * @file
+ * Contains sendgrid_marketing.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function sendgrid_marketing_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the sendgrid_marketing module.
+    case 'help.page.sendgrid_marketing':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Create and send newsletter via SendGrid Marketing Campaigns') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_entity_insert().
+ */
+function sendgrid_marketing_entity_insert(Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->getEntityTypeId() == 'sendgrid_campaign') {
+    $response = sendgrid_marketing_create_campaign($entity);
+
+    if (!empty($response)) {
+      $data = $response->body();
+      $data = json_decode($data);
+
+      // @todo Add field to store sendgrid campaign ID.
+      //$entity->field_sendgrid_campaign_id[LANGUAGE_NONE][0]['value'] = $data->id;
+      //field_attach_update($entity);
+    }
+
+  }
+}
+
+/**
+ * Create SendGrid Campaign from Newsletter node.
+ */
+function sendgrid_marketing_create_campaign($entity) {
+  $config = \Drupal::config('sendgrid_marketing.settings');
+  $sendgrid_api_key = $message = $config->get('sendgrid_api_key');
+  $sg = new \SendGrid($sendgrid_api_key);
+
+  $segment_ids = [];
+
+  // @todo Add Newsletter category config.
+  // $newsletter_category = $entity->field_simplenews_term[LANGUAGE_NONE][0]['tid'];
+  // $list = _fyi_simplenews_extra_get_list_id_by_category($newsletter_category);
+
+  $list_ids = !empty($list) ? [$list] : [variable_get('fyi_sendgrid_list_id', 1260998)];
+
+  $suppression_group_id = variable_get('fyi_sendgrid_suppression_group_id', 2497);
+  $sender_id = variable_get('fyi_sendgrid_sender_id', 122034);
+  $ip_pool = variable_get('fyi_sendgrid_ip_pool', '');
+  $category = [variable_get('fyi_sendgrid_category', '')];
+
+  $html_content = fyi_simplenews_extra_html_newsletter($node);
+  $plain_content = check_markup($html_content, 'plain_text');
+  $plain_content .= ' [unsubscribe]';
+
+  $request_body = array(
+    'categories' => $category,
+    'custom_unsubscribe_url' => '',
+    'html_content' => $html_content,
+    'ip_pool' => $ip_pool,
+    'list_ids' => $list_ids,
+    'plain_content' => $plain_content,
+    'segment_ids' => $segment_ids,
+    'sender_id' => $sender_id,
+    'subject' => $node->title,
+    'suppression_group_id' => $suppression_group_id,
+    'title' => $node->title,
+  );
+
+  $response = $sg->client->campaigns()->post($request_body);
+
+  return $response;
+}

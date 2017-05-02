@@ -1,0 +1,5 @@
+entity.sendgrid_campaign.add_form:
+  route_name: entity.sendgrid_campaign.add_form
+  title: 'Add Sendgrid campaign'
+  appears_on:
+    - entity.sendgrid_campaign.collection

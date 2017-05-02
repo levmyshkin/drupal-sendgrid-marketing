@@ -1,0 +1,55 @@
+# Sendgrid campaign routing definition
+#sendgrid_campaign.admin.structure.campaigns_list:
+#  route_name: sendgrid_marketing.sendgrid_campaigns_list
+#  title: 'SendGrid Marketing'
+#  parent_id: sendgrid_marketing.sendgrid_campaigns_list
+
+#sendgrid_campaign.admin:
+#  route_name: sendgrid_campaign.admin.structure.general_settings
+#  title: 'General Settings'
+#  base_route: sendgrid_campaign.admin.structure.general_settings
+#  weight: 8
+
+#sendgrid_campaign.admin.list:
+#  route_name: sendgrid_campaign.admin.structure.general_settings
+#  title: 'Settings'
+#  parent_id: sendgrid_campaign.admin
+
+sendgrid_campaign.general_settings:
+  route_name: sendgrid_campaign.admin.structure.general_settings
+  title: 'General Settings'
+  parent_id: sendgrid_campaign.admin
+  weight: 8
+
+sendgrid_campaign.list_settings:
+  route_name: sendgrid_marketing.list_settings
+  title: 'List Settings'
+  parent_id: sendgrid_campaign.admin
+  weight: 8
+
+sendgrid_campaign.settings_tab:
+  route_name: sendgrid_campaign.settings
+  title: 'Settings'
+  base_route: sendgrid_campaign.settings
+
+entity.sendgrid_campaign.canonical:
+  route_name: entity.sendgrid_campaign.canonical
+  base_route: entity.sendgrid_campaign.canonical
+  title: 'View'
+
+entity.sendgrid_campaign.edit_form:
+  route_name: entity.sendgrid_campaign.edit_form
+  base_route: entity.sendgrid_campaign.canonical
+  title: 'Edit'
+
+entity.sendgrid_campaign.version_history:
+  route_name: entity.sendgrid_campaign.version_history
+  base_route: entity.sendgrid_campaign.canonical
+  title: 'Revisions'
+
+entity.sendgrid_campaign.delete_form:
+  route_name:  entity.sendgrid_campaign.delete_form
+  base_route:  entity.sendgrid_campaign.canonical
+  title: Delete
+  weight: 10
+

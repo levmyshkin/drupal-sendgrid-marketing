@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.sendgrid_marketing.sendgrid_campaign_body
+  module:
+    - text
+id: sendgrid_marketing.sendgrid_campaign_body
+field_name: sendgrid_campaign_body
+entity_type: sendgrid_campaign
+bundle: default
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+field_type: text_long

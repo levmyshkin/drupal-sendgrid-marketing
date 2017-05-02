@@ -1,0 +1,16 @@
+{
+  "name": "drupal/sendgrid_marketing",
+  "type": "drupal-module",
+  "description": "Create and send newsletter via SendGrid Marketing Campaigns",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/sendgrid_marketing",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/sendgrid_marketing",
+    "source": "http://cgit.drupalcode.org/sendgrid_marketing"
+  },
+  "require": {
+    "sendgrid/sendgrid": "~5.4.2"
+  },
+  "minimum-stability": "dev"
+}
