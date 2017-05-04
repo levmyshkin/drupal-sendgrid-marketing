@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use \Drupal\Core\Mail\MailFormatHelper;
 
 /**
  * Implements hook_help().
@@ -65,7 +66,7 @@ function sendgrid_marketing_create_campaign($entity) {
   $category = $config->get('sendgrid_category');
 
   $html_content = $entity->sendgrid_marketing_body->value;
-  $plain_content = check_markup($html_content, 'plain_text');
+  $plain_content = MailFormatHelper::htmlToText($html_content);
   // @todo Add Header/Footer settings with validation for existing [unsubscribe] token.
 
   $request_body = array(
@@ -75,11 +76,12 @@ function sendgrid_marketing_create_campaign($entity) {
     'ip_pool' => $ip_pool,
     'list_ids' => $list_ids,
     'plain_content' => $plain_content,
+    // @todo Add support for Segment ids.
     //'segment_ids' => $segment_ids,
     'sender_id' => $sender_id,
-    'subject' => $node->title,
+    'subject' => $entity->label(),
     'suppression_group_id' => $suppression_group_id,
-    'title' => $node->title,
+    'title' => $entity->label(),
   );
 
   $response = $sg->client->campaigns()->post($request_body);
