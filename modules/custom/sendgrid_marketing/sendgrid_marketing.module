@@ -70,10 +70,10 @@ function sendgrid_marketing_create_campaign($entity) {
   // @todo Add Header/Footer settings with validation for existing [unsubscribe] token.
 
   $request_body = array(
-    'categories' => $category,
+    'categories' => [$category],
     'custom_unsubscribe_url' => '',
     'html_content' => $html_content,
-    'ip_pool' => $ip_pool,
+    //'ip_pool' => $ip_pool,
     'list_ids' => $list_ids,
     'plain_content' => $plain_content,
     // @todo Add support for Segment ids.
