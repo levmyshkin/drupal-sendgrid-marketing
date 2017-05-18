@@ -49,7 +49,7 @@ Add SendGrid to your `composer.json` file. If you are not using [Composer](http:
 ```json
 {
   "require": {
-    "sendgrid/sendgrid": "~5.4"
+    "sendgrid/sendgrid": "~5.5"
   }
 }
 ```
@@ -167,7 +167,7 @@ require 'vendor/autoload.php';
 $apiKey = getenv('SENDGRID_API_KEY');
 $sg = new \SendGrid($apiKey);
 
-$response = $sg->client->suppressions()->bounces()->get();
+$response = $sg->client->suppression()->bounces()->get();
 
 print $response->statusCode();
 print $response->headers();
