@@ -28,6 +28,26 @@ class SendgridMarketingCampaignsList extends FormBase {
     $data = $response->body();
     $data = json_decode($data);
 
+    // @todo see example CommentAdminOverview.php.
+
+    // Build an 'Update options' form.
+    $form['options'] = [
+      '#type' => 'details',
+      '#title' => $this->t('Remove campaigns'),
+      '#open' => TRUE,
+      '#attributes' => ['class' => ['container-inline']],
+    ];
+
+    $options['delete'] = $this->t('Delete the selected campaigns');
+
+    $form['options']['operation'] = [
+      '#type' => 'select',
+      '#title' => $this->t('Action'),
+      '#title_display' => 'invisible',
+      '#options' => $options,
+      '#default_value' => 'delete',
+    ];
+
     $header = array(
       'title' => $this->t('Title'),
       'subscribers_list' => $this->t('Subscribers list'),
@@ -42,8 +62,8 @@ class SendgridMarketingCampaignsList extends FormBase {
         $statistics = '<a target="_blank" href="https://sendgrid.com/marketing_campaigns/campaigns/' . $campaign->id . '/stats">Statistics</a>';
       }
       $operations_links = '';
-      // $subscribers = _fyi_sendgrid_get_multiple_lists_by_ids($campaign->list_ids, $sg);
-      $subscribers = implode(', ', $campaign->categories);
+      // @todo Replace List ids with List names, add cache for getting List names.
+      $subscribers = implode(', ', $campaign->list_ids);
       if (in_array($campaign->status, ['Draft'])) {
         $view_link = [
           'title' => t('View'),
