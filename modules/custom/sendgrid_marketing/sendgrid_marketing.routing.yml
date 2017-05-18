@@ -17,7 +17,7 @@ sendgrid_marketing.list_settings:
 sendgrid_marketing.sendgrid_campaigns_list:
   path: '/admin/config/sendgrid_marketing/sendgrid-campaigns-list'
   defaults:
-    _controller: '\Drupal\sendgrid_marketing\Controller\CampaignsController::content'
+    _form: '\Drupal\sendgrid_marketing\Form\SendgridMarketingCampaignsList'
     _title: 'SendGrid Campaigns List'
   requirements:
     _permission: 'administer site configuration'

@@ -1,17 +1,23 @@
 <?php
-namespace Drupal\sendgrid_marketing\Controller;
 
-use Drupal\Core\Controller\ControllerBase;
+namespace Drupal\sendgrid_marketing\Form;
+
+use Drupal\Core\Form\FormBase;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Provides route responses for SendGrid Campaigns list.
+ * Provides the SendGrid Campaigns overview administration form.
  */
-class CampaignsController extends ControllerBase {
+class SendgridMarketingCampaignsList extends FormBase {
 
   /**
    * {@inheritdoc}
    */
-  public function content() {
+  public function getFormId() {
+    return 'sendgrid_marketing_campaings_list';
+  }
+
+  public function buildForm(array $form, FormStateInterface $form_state) {
     $config = \Drupal::config('sendgrid_marketing.settings');
     $sendgrid_api_key = $message = $config->get('sendgrid_api_key');
     $sg = new \SendGrid($sendgrid_api_key);
@@ -22,7 +28,13 @@ class CampaignsController extends ControllerBase {
     $data = $response->body();
     $data = json_decode($data);
 
-    $header = array('id', 'title', 'Subscribers list', 'status', 'Statistics', 'Operations');
+    $header = array(
+      'title' => $this->t('Title'),
+      'subscribers_list' => $this->t('Subscribers list'),
+      'status' =>  $this->t('status'),
+      'statistics' => $this->t('Statistics'),
+      'operations' => $this->t('Operations'),
+    );
     $rows = array();
     foreach ($data->result as $campaign) {
       $statistics = '';
@@ -30,8 +42,8 @@ class CampaignsController extends ControllerBase {
         $statistics = '<a target="_blank" href="https://sendgrid.com/marketing_campaigns/campaigns/' . $campaign->id . '/stats">Statistics</a>';
       }
       $operations_links = '';
-     // $subscribers = _fyi_sendgrid_get_multiple_lists_by_ids($campaign->list_ids, $sg);
-      $subscribers = implode(',', $subscribers);
+      // $subscribers = _fyi_sendgrid_get_multiple_lists_by_ids($campaign->list_ids, $sg);
+      $subscribers = implode(', ', $campaign->categories);
       if (in_array($campaign->status, ['Draft'])) {
         $view_link = [
           'title' => t('View'),
@@ -54,23 +66,41 @@ class CampaignsController extends ControllerBase {
 
         //$operations_links = theme('links__ctools_dropbutton', ['links' => [$view_link, $edit_link, $send_link]]);
       }
-      $rows[] = [
-        $campaign->id,
-        $campaign->title,
-        $subscribers,
-        '<div class="status-campaign-' . $campaign->id . '">' . $campaign->status . '</div>',
-        $statistics,
-        $operations_links,
+      $rows[$campaign->id] = [
+        // @todo Add post date.
+        'title' => $campaign->title,
+        'subscribers_list' => $subscribers,
+        'status' => $campaign->status,
+        'statistics' => $statistics,
+        // @todo Add operations later.
+        'operations' => '',
       ];
     }
 
-    $element = array(
+    $form['campaigns'] = array(
       '#type' => 'tableselect',
       '#header' => $header,
       '#options' => $rows,
       '#empty' => t('No SendGrid Campaigns found'),
     );
-    return $element;
+    $form['submit'] = array(
+      '#type' => 'submit',
+      '#value' => t('Submit'),
+    );
+    return $form;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+
+  }
 }

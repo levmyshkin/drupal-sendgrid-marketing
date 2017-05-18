@@ -62,18 +62,14 @@ function sendgrid_marketing_create_campaign($entity) {
   $list_ids = [$config->get('sendgrid_list_id')];
 
   $suppression_group_id = $config->get('sendgrid_suppression_group_id');
-  $ip_pool = $config->get('sendgrid_ip_pool');
-  $category = $config->get('sendgrid_category');
 
   $html_content = $entity->sendgrid_marketing_body->value;
   $plain_content = MailFormatHelper::htmlToText($html_content);
   // @todo Add Header/Footer settings with validation for existing [unsubscribe] token.
 
   $request_body = array(
-    'categories' => [$category],
     'custom_unsubscribe_url' => '',
     'html_content' => $html_content,
-    //'ip_pool' => $ip_pool,
     'list_ids' => $list_ids,
     'plain_content' => $plain_content,
     // @todo Add support for Segment ids.
@@ -83,6 +79,17 @@ function sendgrid_marketing_create_campaign($entity) {
     'suppression_group_id' => $suppression_group_id,
     'title' => $entity->label(),
   );
+
+  $ip_pool = $config->get('sendgrid_ip_pool');
+  if (!empty($ip_pool)) {
+    $request_body['ip_pool'] = $ip_pool;
+  }
+
+  // @todo Add support for multiple categories.
+  $category = $config->get('sendgrid_category');
+  if (!empty($category)) {
+    $request_body['categories'] = [$category];
+  }
 
   $response = $sg->client->campaigns()->post($request_body);
 
