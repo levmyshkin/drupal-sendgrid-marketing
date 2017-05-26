@@ -48,6 +48,11 @@ class SendgridMarketingCampaignsList extends FormBase {
       '#default_value' => 'delete',
     ];
 
+    $form['options']['submit'] = array(
+      '#type' => 'submit',
+      '#value' => t('Delete'),
+    );
+
     $header = array(
       'title' => $this->t('Title'),
       'subscribers_list' => $this->t('Subscribers list'),
@@ -103,10 +108,7 @@ class SendgridMarketingCampaignsList extends FormBase {
       '#options' => $rows,
       '#empty' => t('No SendGrid Campaigns found'),
     );
-    $form['submit'] = array(
-      '#type' => 'submit',
-      '#value' => t('Submit'),
-    );
+
     return $form;
   }
 
@@ -114,13 +116,24 @@ class SendgridMarketingCampaignsList extends FormBase {
    * {@inheritdoc}
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
-
+    $form_state->setValue('campaigns', array_diff($form_state->getValue('campaigns'), [0]));
+    // We can't execute any 'Update options' if no comments were selected.
+    if (count($form_state->getValue('campaigns')) == 0) {
+      $form_state->setErrorByName('', $this->t('Select one or more campaigns to perform the update on.'));
+    }
   }
 
   /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $operation = $form_state->getValue('operation');
+    $campaigns_ids = $form_state->getValue('campaigns');
 
+    foreach ($campaigns_ids as $campaigns_id) {
+      $test = 'adsf';
+    }
+    drupal_set_message($this->t('The update has been performed.'));
+    $form_state->setRedirect('sendgrid_marketing.sendgrid_campaigns_list');
   }
 }
