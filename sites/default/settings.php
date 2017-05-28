@@ -775,3 +775,12 @@ $databases['default']['default'] = array (
 );
 $settings['install_profile'] = 'standard';
 $config_directories['sync'] = 'sites/default/files/config_OGuJsYJfHBZmRjX9RRTFi-3yqiZcy8A7zcHPv8wD1PfYkIt-QoOi1nCGcvQ7_V6JAjSnRQVnXw/sync';
+
+/**
+ * If there is a local settings file, then include it
+ */
+$local_settings = __DIR__ . "/local.settings.php";
+
+if (file_exists($local_settings)) {
+  include $local_settings;
+}

@@ -4,3 +4,5 @@ sites/**/files/**/*
 **/node_modules/**/*
 .idea
 console
+
+sites/default/local.settings.php
