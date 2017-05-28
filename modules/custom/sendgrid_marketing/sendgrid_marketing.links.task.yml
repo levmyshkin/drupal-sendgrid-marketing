@@ -1,31 +1,16 @@
 # Sendgrid campaign routing definition
-#sendgrid_campaign.admin.structure.campaigns_list:
-#  route_name: sendgrid_marketing.sendgrid_campaigns_list
-#  title: 'SendGrid Marketing'
-#  parent_id: sendgrid_marketing.sendgrid_campaigns_list
 
-#sendgrid_campaign.admin:
-#  route_name: sendgrid_campaign.admin.structure.general_settings
-#  title: 'General Settings'
-#  base_route: sendgrid_campaign.admin.structure.general_settings
-#  weight: 8
-
-#sendgrid_campaign.admin.list:
-#  route_name: sendgrid_campaign.admin.structure.general_settings
-#  title: 'Settings'
-#  parent_id: sendgrid_campaign.admin
-
-sendgrid_campaign.general_settings:
-  route_name: sendgrid_campaign.admin.structure.general_settings
+sendgrid_marketing.general_settings:
+  route_name: sendgrid_marketing.general_settings
   title: 'General Settings'
-  parent_id: sendgrid_campaign.admin
+  base_route: sendgrid_marketing.general_settings
   weight: 8
 
-sendgrid_campaign.list_settings:
+sendgrid_marketing.list_settings:
   route_name: sendgrid_marketing.list_settings
   title: 'List Settings'
-  parent_id: sendgrid_campaign.admin
-  weight: 8
+  base_route: sendgrid_marketing.general_settings
+  weight: 9
 
 sendgrid_campaign.settings_tab:
   route_name: sendgrid_campaign.settings
