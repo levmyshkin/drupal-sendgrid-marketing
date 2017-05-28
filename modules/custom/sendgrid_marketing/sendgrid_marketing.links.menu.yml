@@ -54,3 +54,10 @@ sendgrid_campaign.admin.structure.list_settings:
   parent: sendgrid_campaign.admin.structure.general_settings
   weight: 20
 
+sendgrid_campaign.admin.structure.header_footer_settings:
+  title: Header/Footer Settings
+  description: 'Header/Footer settings'
+  route_name: sendgrid_marketing.header_footer_settings
+  parent: sendgrid_campaign.admin.structure.general_settings
+  weight: 21
+
