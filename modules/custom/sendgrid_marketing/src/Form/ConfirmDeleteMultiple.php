@@ -87,15 +87,25 @@ class ConfirmDeleteMultiple extends ConfirmFormBase {
     // array_filter() returns only elements with actual values.
     $campaign_counter = 0;
     $ids = array_keys(array_filter($edit['campaigns']));
-    $campaigns = $this->campaignStorage->loadMultiple(array_keys(array_filter($edit['campaigns'])));
-    $this->campaigns = $this->campaignStorage->loadMultiple(array_keys(array_filter($edit['campaigns'])));
-    foreach ($this->campaigns as $campaign) {
-      $campaign_id = $campaign->id();
+    $config = \Drupal::config('sendgrid_marketing.settings');
+    $apiKey = $config->get('sendgrid_api_key');
+    $sg = new \SendGrid($apiKey);
+
+    foreach ($ids as $campaign_id) {
+      $response = $sg->client->campaigns()->_($campaign_id)->get();
+      if ($response->statusCode() == 200) {
+        $body = $response->body();
+        $body = json_decode($body);
+        $campaign_name = $body->title;
+      }
+      else {
+        $campaign_name = $campaign_id;
+      }
       $form['campaigns'][$campaign_id] = [
         '#type' => 'hidden',
         '#value' => $campaign_id,
         '#prefix' => '<li>',
-        '#suffix' => Html::escape($campaign->label()) . '</li>'
+        '#suffix' => Html::escape($campaign_name) . '</li>'
       ];
       $campaign_counter++;
     }
@@ -113,8 +123,18 @@ class ConfirmDeleteMultiple extends ConfirmFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    if ($form_state->getValue('confirm')) {
-      $this->campaignStorage->delete($this->campaigns);
+    if ($form_state->getValue('confirm') && $form_state->getValue('campaigns')) {
+      foreach ($form_state->getValue('campaigns') as $campaign_id) {
+        $config = \Drupal::config('sendgrid_marketing.settings');
+        $apiKey = $config->get('sendgrid_api_key');
+        $sg = new \SendGrid($apiKey);
+
+        $response = $sg->client->campaigns()->_($campaign_id)->delete();
+      }
+
+      // @todo delete campaings entities by reference field.
+      // @todo get entity by Campaign ID.
+
       $count = count($form_state->getValue('campaigns'));
       $this->logger('sendgrid_marketing')->notice('Deleted @count campaigns.', ['@count' => $count]);
       drupal_set_message($this->formatPlural($count, 'Deleted 1 campaign.', 'Deleted @count campaigns.'));
