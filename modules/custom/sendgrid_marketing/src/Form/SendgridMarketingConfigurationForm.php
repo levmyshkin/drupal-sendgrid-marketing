@@ -4,6 +4,7 @@
  * Contains Drupal\sendgrid_marketing\Form\SendgridMarketingConfigurationForm.
  */
 namespace Drupal\sendgrid_marketing\Form;
+
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 

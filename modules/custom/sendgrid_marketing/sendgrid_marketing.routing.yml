@@ -14,6 +14,14 @@ sendgrid_marketing.list_settings:
   requirements:
     _permission: 'administer site configuration'
 
+sendgrid_marketing.header_footer_settings:
+  path: '/admin/config/sendgrid_marketing/header-footer-settings'
+  defaults:
+    _form: '\Drupal\sendgrid_marketing\Form\SendgridMarketingHeaderFooterForm'
+    _title: 'Header and Footer'
+  requirements:
+    _permission: 'administer site configuration'
+
 sendgrid_marketing.sendgrid_campaigns_list:
   path: '/admin/config/sendgrid_marketing/sendgrid-campaigns-list'
   defaults:

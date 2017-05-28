@@ -1,0 +1,4 @@
+sendgrid_html_header: ''
+sendgrid_plain_text_header: ''
+sendgrid_html_footer: "<p><a href=\"[unsubscribe]\">Unsubscribe from this newsletter</a></p>"
+sendgrid_plain_text_footer: '[unsubscribe] from this newsletter'

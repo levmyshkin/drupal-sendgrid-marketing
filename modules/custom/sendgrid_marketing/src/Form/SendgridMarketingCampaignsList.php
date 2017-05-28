@@ -4,6 +4,8 @@ namespace Drupal\sendgrid_marketing\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
 
 /**
  * Provides the SendGrid Campaigns overview administration form.
@@ -99,6 +101,16 @@ class SendgridMarketingCampaignsList extends FormBase {
         'statistics' => $statistics,
         // @todo Add operations later.
         'operations' => '',
+      ];
+    }
+
+    if (empty($rows)) {
+      $url = Url::fromRoute('sendgrid_marketing.general_settings');
+      $link = \Drupal::l(t('configuration page'), $url);
+      $form['empty-message'] = [
+        '#markup' => t('No SendGrid Campaigns found. Check your SendGrid settings on ') .
+          $link->getGeneratedLink(),
+        '#weight' => -9,
       ];
     }
 

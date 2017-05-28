@@ -12,6 +12,12 @@ sendgrid_marketing.list_settings:
   base_route: sendgrid_marketing.general_settings
   weight: 9
 
+sendgrid_marketing.header_footer_settings:
+  route_name: sendgrid_marketing.header_footer_settings
+  title: 'Header and Footer'
+  base_route: sendgrid_marketing.general_settings
+  weight: 10
+
 sendgrid_campaign.settings_tab:
   route_name: sendgrid_campaign.settings
   title: 'Settings'
