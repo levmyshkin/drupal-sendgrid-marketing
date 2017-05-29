@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - sendgrid_marketing
+id: sendgrid_campaign.field_sendgrid_campaign_id
+field_name: field_sendgrid_campaign_id
+entity_type: sendgrid_campaign
+type: integer
+settings:
+  unsigned: false
+  size: normal
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

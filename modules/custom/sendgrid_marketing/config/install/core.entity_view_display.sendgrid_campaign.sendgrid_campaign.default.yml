@@ -1,0 +1,46 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.sendgrid_campaign.sendgrid_campaign.field_sendgrid_campaign_id
+  module:
+    - sendgrid_marketing
+    - text
+    - user
+id: sendgrid_campaign.sendgrid_campaign.default
+targetEntityType: sendgrid_campaign
+bundle: sendgrid_campaign
+mode: default
+content:
+  field_sendgrid_campaign_id:
+    weight: 1
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
+  name:
+    label: above
+    type: string
+    weight: -4
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  sendgrid_marketing_body:
+    label: hidden
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  user_id:
+    label: hidden
+    type: author
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

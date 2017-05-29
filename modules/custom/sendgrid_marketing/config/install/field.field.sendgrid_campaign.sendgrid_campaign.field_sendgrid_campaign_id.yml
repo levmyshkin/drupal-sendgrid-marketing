@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.sendgrid_campaign.field_sendgrid_campaign_id
+  module:
+    - sendgrid_marketing
+id: sendgrid_campaign.sendgrid_campaign.field_sendgrid_campaign_id
+field_name: field_sendgrid_campaign_id
+entity_type: sendgrid_campaign
+bundle: sendgrid_campaign
+label: 'SendGrid Campaign ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: 1
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer
