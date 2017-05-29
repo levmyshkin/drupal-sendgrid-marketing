@@ -51,9 +51,6 @@ function sendgrid_marketing_create_campaign($entity) {
   $sendgrid_api_key = $message = $config->get('sendgrid_api_key');
   $sg = new \SendGrid($sendgrid_api_key);
 
-  // @todo Add support for Segments.
-  //$segment_ids = [];
-
   $sender_id = $config->get('sendgrid_sender_id');
 
   // @todo Add support for multiple lists
@@ -63,16 +60,18 @@ function sendgrid_marketing_create_campaign($entity) {
   $suppression_group_id = $config->get('sendgrid_suppression_group_id');
 
   $html_content = $entity->sendgrid_marketing_body->value;
+  $html_content = $config->get('sendgrid_html_header') . $html_content .
+    $config->get('sendgrid_html_footer');
+
   $plain_content = MailFormatHelper::htmlToText($html_content);
-  // @todo Add Header/Footer settings with validation for existing [unsubscribe] token.
+  $plain_content = $config->get('sendgrid_plain_text_header') . $plain_content .
+    $config->get('sendgrid_plain_text_footer');
 
   $request_body = array(
     'custom_unsubscribe_url' => '',
     'html_content' => $html_content,
     'list_ids' => $list_ids,
     'plain_content' => $plain_content,
-    // @todo Add support for Segment ids.
-    //'segment_ids' => $segment_ids,
     'sender_id' => $sender_id,
     'subject' => $entity->label(),
     'suppression_group_id' => $suppression_group_id,
@@ -83,6 +82,9 @@ function sendgrid_marketing_create_campaign($entity) {
   if (!empty($ip_pool)) {
     $request_body['ip_pool'] = $ip_pool;
   }
+
+  // @todo Add support for Segments.
+  //$segment_ids = [];
 
   // @todo Add support for multiple categories.
   $category = $config->get('sendgrid_category');
