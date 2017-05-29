@@ -7,6 +7,8 @@ dependencies:
     - sendgrid_marketing
     - text
     - user
+_core:
+  default_config_hash: X6t5lH54Wek0uUNNCjXQqzxQ1qfijJpyCBThY8CVxaY
 id: sendgrid_campaign.sendgrid_campaign.default
 targetEntityType: sendgrid_campaign
 bundle: sendgrid_campaign

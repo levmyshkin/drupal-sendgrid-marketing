@@ -31,12 +31,11 @@ function sendgrid_marketing_entity_insert(Drupal\Core\Entity\EntityInterface $en
   if ($entity->getEntityTypeId() == 'sendgrid_campaign') {
     $response = sendgrid_marketing_create_campaign($entity);
 
-    if (!empty($response)) {
+    if (!empty($response) && $response->statusCode() == 201) {
       $data = $response->body();
       $data = json_decode($data);
 
-      // @todo Add field to store sendgrid campaign ID.
-      $entity->sendgrid_marketing_campaign_id->value = $data->id;
+      $entity->field_sendgrid_campaign_id->value = $data->id;
       $entity->setNewRevision(FALSE);
       $entity->save();
     }
