@@ -98,3 +98,12 @@ function sendgrid_marketing_create_campaign($entity) {
 }
 
 // @todo Add notifications about required settings fields on Adding Campaign form.
+
+/**
+ * Implements hook_entity_view().
+ */
+function sendgrid_marketing_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
+  if ($entity->getEntityTypeId() == 'sendgrid_campaign' && $view_mode == 'full') {
+    $test = 'asf';
+  }
+}

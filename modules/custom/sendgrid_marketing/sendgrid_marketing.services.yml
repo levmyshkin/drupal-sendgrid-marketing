@@ -1,0 +1,5 @@
+services:
+  sendgrid_marketing.subscriber:
+    class: Drupal\sendgrid_marketing\EventSubscriber\SendgridMarketingSubscriber
+    tags:
+      - { name: event_subscriber }
